@@ -1,0 +1,26 @@
+# =====================================
+# generator=datazen
+# version=3.1.4
+# hash=98871cb841f3aae093c955c4627e31d8
+# =====================================
+---
+project:
+  name: picolibc-semihost
+
+  github: {owner: &self vkottler}
+  version: {major: 0, minor: 1, patch: 0}
+variants:
+  clang:
+    suffix: &clang_version "-15"
+    enabled: false
+
+  # Disable regular targets.
+  debug:
+    enabled: false
+  opt:
+    enabled: false
+  clang-opt:
+    enabled: false
+
+includes:
+  - local/yambs.yaml

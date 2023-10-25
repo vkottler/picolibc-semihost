@@ -1,0 +1,9 @@
+---
+name: picolibc-semihost
+description: A bare-metal picolibc-based bootstrapping environment.
+embedded: true
+
+version:
+  major: 0
+  minor: 1
+  patch: 0
