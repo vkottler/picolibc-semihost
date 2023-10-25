@@ -4,13 +4,11 @@ includes:
 
 default_target: picolibc-semihost
 
-ldflag_groups:
-  picolibc-semihost: [-lsemihost]
-
 variants:
   picolibc-semihost:
     prefix: "arm-picolibc-eabi-"
     cflag_groups: [picolib]
+    ldflag_groups: [semihost]
 
 dependencies:
   - github: {repo: coral, owner: &self vkottler}
