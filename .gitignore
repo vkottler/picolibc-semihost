@@ -15,3 +15,7 @@ mklocal
 site.env
 dist
 third-party
+.env
+.gdbinit
+.vimrc
+toolchains
