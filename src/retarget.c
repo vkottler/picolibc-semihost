@@ -12,16 +12,6 @@ extern "C"
 #include <semihost.h>
 #include <stdio.h>
 
-    void _exit(int code)
-    {
-        (void)code;
-
-        while (1)
-        {
-            ;
-        }
-    }
-
     /*
      * Must be set by a debugger.
      */
