@@ -17,6 +17,16 @@ void register_commands(CommandLineApp &app)
 
 char input[BUFSIZ];
 
+extern "C" void _exit(int code)
+{
+    (void)code;
+
+    while (1)
+    {
+        ;
+    }
+}
+
 int main(void)
 {
     App app(register_commands);
