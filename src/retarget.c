@@ -13,32 +13,37 @@ extern "C"
 #include <stdio.h>
 
     /*
+     * Must be provided by the application.
+     */
+    extern int putc_extra(char c, FILE *file, bool semihosting_enabled);
+    extern void getc_extra(int *result, FILE *file, bool semihosting_enabled);
+    extern int flush_extra(FILE *file, bool semihosting_enabled);
+
+    /*
      * Must be set by a debugger.
      */
     volatile bool enable_semihosting = false;
 
     static int putc_wrapper(char c, FILE *file)
     {
-        (void)file;
-
-        if (enable_semihosting)
+        bool try_semihost = enable_semihosting;
+        if (try_semihost)
         {
             char out[2] = {c, 0};
             sys_semihost_write0(out);
         }
-
-        return 0;
+        return putc_extra(c, file, try_semihost);
     }
 
     int stdin_fd = -1;
 
     static int getc_wrapper(FILE *file)
     {
-        (void)file;
-
         int result = -1;
 
-        if (enable_semihosting && stdin_fd != -1)
+        bool try_semihost = enable_semihosting && stdin_fd != -1;
+
+        if (try_semihost)
         {
             char input = result;
 
@@ -50,12 +55,18 @@ extern "C"
 
             result = input;
         }
+        getc_extra(&result, file, try_semihost);
 
         return result;
     }
 
-    static FILE __stdio =
-        FDEV_SETUP_STREAM(putc_wrapper, getc_wrapper, NULL, _FDEV_SETUP_RW);
+    static int flush_wrapper(FILE *file)
+    {
+        return flush_extra(file, enable_semihosting);
+    }
+
+    static FILE __stdio = FDEV_SETUP_STREAM(putc_wrapper, getc_wrapper,
+                                            flush_wrapper, _FDEV_SETUP_RW);
 
     FILE *const stdout = &__stdio;
     FILE *const stdin = &__stdio;

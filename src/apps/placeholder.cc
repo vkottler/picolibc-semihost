@@ -27,6 +27,28 @@ extern "C" void _exit(int code)
     }
 }
 
+extern "C" int putc_extra(char c, FILE *file, bool semihosting_enabled)
+{
+    (void)c;
+    (void)file;
+    (void)semihosting_enabled;
+    return -1;
+}
+
+extern "C" void getc_extra(int *result, FILE *file, bool semihosting_enabled)
+{
+    (void)result;
+    (void)file;
+    (void)semihosting_enabled;
+}
+
+extern "C" int flush_extra(FILE *file, bool semihosting_enabled)
+{
+    (void)file;
+    (void)semihosting_enabled;
+    return -1;
+}
+
 int main(void)
 {
     App app(register_commands);
