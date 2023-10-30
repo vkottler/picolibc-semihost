@@ -21,7 +21,6 @@ static constexpr const char *prompt = "$ ";
 /*
  * Must be set by a debugger.
  */
-volatile bool enable_cli = false;
 extern volatile bool enable_semihosting;
 
 extern int stdin_fd;
@@ -46,7 +45,7 @@ class App
 
     inline void poll_stdin(char *input)
     {
-        if (enable_cli and gets(input) != NULL)
+        if (stdin_fd > 0 and enable_semihosting and gets(input) != NULL)
         {
             /* Publish command data. */
             buf.push_n_blocking(input, strlen(input));
@@ -65,14 +64,15 @@ class App
     {
         app.add_handler(
             "cli", [this](CommandLine &cli) { do_cli(cli); },
-            "toggle the CLI on or off");
+            "toggle the semihosting CLI on or off");
     }
 
     void do_cli(CommandLine &cli)
     {
         (void)cli;
 
-        enable_cli = not enable_cli;
-        printf("Toggling CLI %s.\n", enable_cli ? "on" : "off");
+        enable_semihosting = not enable_semihosting;
+        printf("Toggling semihosting CLI %s.\n",
+               enable_semihosting ? "on" : "off");
     }
 };
