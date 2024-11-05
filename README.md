@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.4
-    hash=72805e95fb6414013ee84bd1261e0849
+    hash=5a00f08469c7092e27a711a30fc1e189
     =====================================
 -->
 
-# picolibc-semihost ([0.2.3](https://github.com/vkottler/picolibc-semihost/releases/tag/0.2.3))
+# picolibc-semihost ([0.2.4](https://github.com/vkottler/picolibc-semihost/releases/tag/0.2.4))
 
 [![codecov](https://codecov.io/gh/vkottler/picolibc-semihost/branch/master/graph/badge.svg)](https://codecov.io/gh/vkottler/picolibc-semihost)
 ![Build Status](https://github.com/vkottler/picolibc-semihost/actions/workflows/yambs-project.yml/badge.svg)
